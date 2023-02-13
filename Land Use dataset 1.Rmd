@@ -1,0 +1,64 @@
+---
+title: "Land Use - Dataset 1"
+author: "Francesca Ucci"
+date: "`r Sys.Date()`"
+output: pdf_document
+reference-section-title:
+bibliography: lib.bib
+linestrech: 1.5 
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r, echo=FALSE, eval=TRUE}
+source("logit_model_estimation.R")
+
+#source("path/to/logit_model_estimation.R")
+```
+
+# **1. INTRODUCTION** 
+
+Briefly explain the topic and the aim of your analysis. Look into the additional material (codebook, paper) (max. 500 words).
+
+
+# **2. METHOD**
+
+Describe the method you use. You need not explain each step to derive the model you use. It is more important that your approach becomes clear and how it is specifically differs from the main modelling approaches. This includes writing down your utility function with all parameters and variables used (max 1000 words).
+
+
+## 2.1 Computing a random utility model.
+
+
+## 2.2 Specifying the models computed. 
+
+
+## 2.3 What is the marginal Willingness to Pay (WTP).
+
+
+# **3. RESULTS**
+
+Present your results in a comprised manner, use one or two tables and figures, but
+not more (max. 1500 words).
+
+
+
+comments on my database - based on Tilman
+
+   1    2    3 
+2450 2669 6284
+
+Alternative 3 is the status quo - chosen quite a lot (6284 times)
+
+Betas = 0 is just an estimation.
+
+
+
+
+
+```
+
+
+# **4. DISCUSSION AND CONCLUSION**
+
+Briefly discuss your results and draw some general, maybe policy relevant conclusions (max. 500 words).

@@ -1,0 +1,278 @@
+---
+title: "Land Use - Dataset #1"
+author: "Francesca Ucci"
+output:
+  pdf_document: default
+  html_document: default
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+reference-section-title: References
+bibliography: reference.bib
+linestrech: 1.5 
+editor_options: 
+  markdown: 
+    wrap: 70
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, include=FALSE)
+```
+
+```{r, echo=FALSE, eval=TRUE}
+
+source("startup.R")
+
+source("adjustdata.R")
+
+source("models.R")
+
+source("wtp.R")
+
+```
+
+## **1. Introduction**
+The way people perceive the land use is a crucial issue that affects communities, the environment, and the economy. Land is a finite resource, and the way it is used has a significant impact on the sustainability of both the local and global ecosystem. From urbanization and agriculture to mining and forestry, the demands on land are many and diverse. However, it is important to consider the long-term consequences of land use and to ensure that the resources are used in a sustainable manner that balances economic, social, and environmental needs.
+
+Therefore, the following research was conducted with the intent of investigating the possible factors that might contribute to affecting people's preferences for the use of the land surrounding the area they live in. Specifically, the research was undertaken to dig deeper into how the income level and the days that a person spends in nature might impact the way in which the land is perceived.
+Research suggests that people with higher incomes often have a different perception of natural resources compared to those with lower
+incomes. Generally, it is thought that people with more wealth tend to
+place less value on natural resources, as they have access to other
+forms of wealth that can replace them. It seems like people who earn more money are actually less likely to support conservation efforts, such as protecting endangered species or preserving natural habitats. Additionally, people with higher incomes seem to be more likely to engage in activities that can be detrimental to 
+natural resources, such as recreational hunting or off-road vehicle
+use.
+
+That is why the analysis was run to see if there is any correlation between
+the behavior of people and their attention for the environment and,
+also, to check if the way people live might somehow impact their
+preferences for a more enhanced nature. The underlying thought is based on the assumption that people's daily routine and lifestyle might influence their perception
+of nature. In other words, the idea is that those who spend more time
+in nature might appreciate it more and be more attentive on preserving
+it.
+
+It is important to point out that through this analysis it cannot be
+stated with certainty that factors like income or people's behavior can cause changes in people's preferences, and this is because the relationship is more complex, and
+other factors - such as "non-use values" - should be considered.
+Non-use values are values that people place on natural resources even
+if they are not used directly, such as the knowledge that a natural
+resource exists and is protected for future generations.
+
+The data considered for the above-mentioned purposes was collected
+thanks to an online survey that dates back to 2013 by
+@weller2015varying. This survey was conducted throughout Germany and
+the sample of respondents was balanced to try to include an equal
+representation of different age groups, genders and geographical
+areas - for it to be as representative as possible of the online
+population in Germany. The data collected includes six different
+samples, which were randomly assigned to respondents. The data-set
+used in this study - dataset 1 - specifically focuses on forest's
+attributes related. The study by @weller2015varying builds on previous
+research by focusing on individual attributes in a discrete choice
+experiment. The research question aims to determine whether
+preferences for attributes remain consistent when other attributes are
+varied. Specifically, the study aims to determine if participants
+assign higher values to specific attributes when presented in a
+specific context, or if the value is diminished due to the presence of
+other attributes.
+
+## **2. Method**
+Choice experiments are a research method in which participants are given
+a series of choices between options with different attributes and that aim at collecting and analyzing what the person decided. Once the survey is done, the data collected is then analyzed using statistical models to understand how different attributes influence
+the respondent's decisions. This method is commonly used in fields such as
+economics to understand consumer behavior, product design and policy
+evaluation. Such methods are considered powerful as they enable researchers to
+measure the trade-offs individuals make and the relative importance of
+different attributes in the decision-making context.
+
+In the survey by @weller2015varying, all participants were presented
+with *two fixed attributes* (share of forest & field size), and three
+*flexible attributes* (understorey in forests, coniferous trees & age
+of forests), plus the *price attribute* was considered. This
+experimental design ensured that the information provided to
+participants before the choice tasks was consistent across all
+samples, so that any variations in the choices made could be
+attributed solely to the flexible attributes. Such an approach eliminates
+the possibility that other factors influencing the choices made by
+participants may exist.
+
+In each choice scenario, participants were asked to choose between
+three alternatives that reflected an improvement, deterioration, or
+persistence of the condition of the landscape at the time the survey was undertaken in relation to each specific attribute. For example, the first level for the "share of forest in the landscape" attribute was a 10% decrease, the second was
+maintaining the situation unchanged (the status quo), and the third was a 10% increase in the proportion of forest, which would correspondingly lead to a
+proportional shift in the share of agricultural land. Another example is that related to the attribute levels for "understorey in forest" which ranged between "as today", "half as much" and "twice as much". The other attribute levels followed a
+similar pattern. The "price" attribute was framed as a yearly payment
+to a local fund that ranged between 10€ and 160€.
+
+### **2.1 Computing a random utility model.**
+To understand how different factors affect people's preferences, the *conditional logit model* was thought of as being the most effective evaluation model.
+The basic idea behind this model is that by asking people to choose
+between different options, one can infer their preferences for
+different attributes (@greene2009discrete). The model assumes that people make choices that will maximize their overall satisfaction or utility. However, in the
+real world, people's choices are not always predictable, so the model
+also includes a term for randomness, which serves to represent the uncertainty
+in people's choices. To estimate the model, the *Maximum Likelihood Estimation* method was used, which is a way to find the set of parameters that are most likely to have generated the data we have collected. The results of this analysis can be interpreted as the probability that a person will choose one option over another, given
+their preferences for the different attributes of those options.
+
+### **2.2 Specifying the models computed.**
+The best way to reach significant results was by computing three three different models for the land use choice experiment. Each model was built on a different
+utility function. The six attributes used are represented in different ways each time to try and get an overview on how different interactions between the attributes
+contribute to obtaining different results.
+
+#### **2.2.1 Model 1 - Base Model**
+The starting point was the creation of a basic model. This model aims at allowing an easier comparison between the different models that were estimated. The linear utility
+function used is as follows:
+
+$$U1=\beta_0*ASC +\beta_1*ShFor+\beta_2*SzFor+\beta_3*UndFor+\beta_4*ConTre+$$
+$$+\beta_5*AgeFor +\beta_6*P+\epsilon$$
+
+#### **2.2.2 Model 2 - No interactions included**
+This model includes squared terms for the share of forest (ShFor) as it is believed that the benefit of increasing forest coverage decreases as the proportion of forest increases. This is the relative utility function that was used:
+
+$$U2=\beta_0*ASC+\beta_1*ShFor+\beta_2*ShFor^2+\beta_3*SzFor+\beta_4*UndFor+$$
+$$+\beta_5*ConTre+\beta_6*AgeFor+\beta_7*P+\epsilon$$
+
+#### **2.2.3 Model 3 - With interaction terms**
+The third model includes two interaction terms that were designed to address the
+original research question. The first interaction is between the
+*understorey in forest* attribute and a variable for *disposable income* that has been adjusted to have a mean of zero, whereas the second
+interaction is between the *understorey in forest* attribute and a
+variable for *days spent in the open landscape* that has also been
+adjusted to have a mean of zero. The model's utility function is:
+
+$$U3=\beta_0*ASC+\beta_1*ShFor+\beta_2*ShFor^2+\beta_3*SzFor+\beta_4*UndFor+\beta_5*ConTre+$$
+$$+\beta_6*AgeFor+\beta_7*P+\beta_8*{UndFor*MCInc}+\beta_9*{UndFor*MCNatDay}+\epsilon$$
+The reason why this interaction was considered is to understand how
+people's opinions about the environment might be related to how much
+money they make. The idea is that people who make more money might care
+more about the environment because they don't have to worry as much
+about other things that for other people might be basic needs (@lewis2018extent). 
+
+Given that the analysis only looks at how much money people make on
+county-level then it is important to note that the results are just estimates. 
+
+### **2.3 What is the marginal Willingness to Pay (WTP).**
+The marginal willingness to pay is a measure of the additional value that an individual
+places on a good or service, and is the maximum amount that a person
+would be willing to pay for an additional unit of a good or service.
+The general formula for the marginal willingness to pay is given by:
+
+$$MWTP=-\frac{\frac{\partial V}{\partial atr}}{\frac{\partial V}{\partial a_c}}$$
+The MWTP is often used in economic analysis to estimate the value of changes
+in environmental quality or non-market goods (like understorey in
+forest in this case). To calculate the average WTP, we need to consider a version
+of the demographic variable that has been adjusted so that the average
+value is zero. This is needed to look at how different groups of
+people might have different WTPs. Here, the MWTP for understorey in
+forest is provided:
+
+$$MWTP_{UndFor}=-\dfrac{\beta_4+\beta_8*MCInc+\beta_9*MCNatDay}{\beta_7}$$
+
+## **3. Results**
+### **3.1 Beta estimates**
+The Apollo package in R was used in this analysis to estimate
+conditional logit models using Maximum Likelihood estimation (MLE).
+It's important to note that MLE is a method that assumes that the
+sample data is a random sample from the population, so the results are
+based on the assumption that the sample is representative of the
+population. Additionally, MLE assumes that the data is independent and
+identically distributed.
+
+To interpret the results, the first thing that is worth observing is
+the fact that respondents seem to have preferred the status quo
+alternative over the possibility to change the surrounding area by
+including more plants. Alternative 3 (the status quo) was chosen 6284
+times (55.11%) whereas the rate at which the other 2 alternatives have
+been chosen accounts for less than 50% and this means that among the
+people that took part in the survey the majority of them would keep
+the situation unchanged.
+
+**Table 1** below contains the results of three different conditional
+logit models (model1, model2, and model3) estimated. Each model has a
+set of independent variables (b_alt1, b_alt2, b_wald\_, b_groe\_,
+b_FoUnt\_, b_ConSh\_, b_HaAge\_, b_prei\_, b_wald2, b_groeHalf,
+b_groeDouble, b_IncXFoUnt\_, b_NatDayXFoUnt\_), their corresponding
+coefficients and standard errors.
+
+The table provides the coefficient estimates, their standard errors, and the p-values for each independent variable in the model. The p-values are used to test the hypothesis that each coefficient is equal to zero, and the asterisks indicate the level of significance. In this case, a coefficient with three asterisks has a p-value less than 0.001, indicating that it is *highly significant* and unlikely to be zero. A coefficient with two asterisks has a p-value between 0.001 and 0.01, indicating that it is significant. A coefficient with one asterisk has a p-value between 0.05 and 0.01, indicating that it is significant at the 5% level. So, to be able to estimate results, I started by looking at the estimated coefficients for each model. A positive coefficient indicates that an increase in the independent variable is associated with an increase in
+the probability of the dependent variable.
+
+The coefficients for the alternative specific constants are significant and are useful to see that people's preferences tend to lean towards the status quo, because it means that they would rather stick to the current situation.
+
+Also the coefficients related to the *share of forest* or *ShFor* are highly significant in all the three models. The significance test helps to state that generally people gain
+utility from a marginal increases of forest shares. It can be assumed 
+that, with higher levels of forest shares people gain less from an
+additional unit of forest. The inclusion of the squared term for the share of forest in model 2 and 3 should possibly contribute to a decreasing marginal utility. 
+
+Differently, the *size of the forest* attribute is not significant, which suggests that respondents seem to not be interested in a scarce surrounding landscape - which another time is in line with the choice of the status quo.
+
+By shifting the attention to the *UndFor*, the first thing that can easily be noted is that the coefficient estimated for the attribute is highly significant. Nevertheless, what is curious is that when it is considered in relation to the interaction terms, the result changes. As you can see in Table 1, the interaction between income and understorey is not significant. The obtained result tells us that there is no relation between income and nature, so one term does not influence the other. This is not in line with the idea that the more people earn, the more their interest towards the environment is.
+The other interaction term considered - between *UndFor* and *days in the open landscape* - is highly significant, therefore there seems to be a link between the days spent in nature and the interest of people to implement the understorey in forests, in the sense that the more time a person spends in nature, the more the interest towards forests grows.
+
+Lastly, it is worth to say that *Pri*, the price, has a negative
+coefficient that is higly significant in all models. This indicates a
+decrease in utility with increasing costs for improving the respective
+environment.
+
+### **3.2 Marginal willingness to pay**
+A good way to find a practical interpretation of the results of a
+discrete choice experiment is the calculation of the MWTP, which is
+shown in **Table 2** for each attribute.
+
+The willingness to pay of the respondents for an marginal increase of
+*UndFor* is 24.19. This value tells us that for an extra unit of
+understorey, people would be willing to pay this much. As the
+attribute ranges from "as today", over "half as much" to "twice as
+much" it is impossible to pin down a precise unit of understorey that
+the MWTP would cover.
+
+A strange result is the one related to the share of forest -2.79. A
+negative willingness to pay indicates that a consumer is willing to
+pay to avoid a certain product or service. In this case, it means that
+the consumer values the absence of forest more than the presence of
+it. This might also be of relevance considering the high share of
+people who decided to go for the status quo rather than seeing a
+change in the surrounding land.
+
+Another interesting result is relative to the interaction term between
+*UndFor* and income, -0.73. This might serve as a proof of the fact
+that there is no correlation between respondent's income and their
+interest towards the environment - what was stated by the initial
+research question.
+
+## **4. Discussion and conclusion**
+As already mentioned, the purpose of this working paper was to see if there was any relation between the respondent's income and people's attitude towards green areas, and, also, to see if the way people perceive nature depends on how much time they spend in the open air. What the results obtained by including the two interaction terms in the analysis have shown are not really significant, as they don't have a significant impact on model 3 compared to the other 2 estimated models, and this indicates that adding extra variables does not greatly change the results.
+
+Another conclusion that can be derived is in line with the fact that the majority of people interviewed would rather keep the situation as it is now instead of changing for a greener landscape, which proves another time that income plays a marginal role in shaping people's mindset relative to environmental matters. What is generally believed by the vast majority of people is that income can play a significant role in shaping people's attitudes and perceptions of the environment. Generally, individuals with higher incomes are more likely to have a more positive attitude towards the
+environment and might also be more concerned about environmental issues.Moreover, they might have access to more information about environmental problems and
+the resources needed to take action, such as participating in environmental
+advocacy or making environmentally-friendly purchases. 
+
+On the other hand, individuals with lower incomes may prioritize immediate economic
+needs and may not have the same level of concern for environmental
+issues. However, it is important to note that income is just one of
+many factors that can influence people's perception of the environment
+and further research is needed to fully understand this relationship.
+
+To sensibilize richer people, but also a big part of the society in such a delicate moment for environmental matters, it might be necessary to design targeted campaigns and initiatives that specifically address their concerns and provide incentives for taking action. Additionally, it may be important to provide education and information about the environmental benefits of conservation, and to highlight the role that everyone can play in protecting the natural world. For sure, government action is needed, in the sense that governmental policies that address environmental challenges and incentivize sustainable practices should be promoted and continuously improved. 
+
+Another possibly relevant move would be to show the financial benefits of moving towards a greener lifestyle. This could be done by demonstrating how environmental sustainability can have positive financial outcomes, such as reducing costs, improving brand image, and creating new business opportunities.
+
+```{r, results="asis", include=FALSE}
+ 
+models_tex=list()
+
+models_tex[["model1"]] <- quicktexregapollo(model1)
+models_tex[["model2"]] <- quicktexregapollo(model2)
+models_tex[["model3"]] <- quicktexregapollo(model3)
+
+screenreg(models_tex, digits=4)
+
+```
+
+```{r, results="asis", include=TRUE}
+
+texreg(models_tex , caption = "Estimated models", custom.model.names = c("Base Model", "No Interaction" , "With interactions"))
+
+models_tex <- quicktexregapollo(model3,wtpest = allwtp)
+
+texreg(models_tex, caption = "Willingness to pay")
+
+```
+
